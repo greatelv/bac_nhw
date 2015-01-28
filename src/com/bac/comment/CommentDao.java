@@ -17,6 +17,19 @@ public class CommentDao {
 																
 	static final String USER = "root";
 	static final String PASS = "900418";
+	
+	public Connection getConnection() throws SQLException{
+		Connection conn = null;
+		//STEP 2: Register JDBC driver
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return conn;
+	}
 
 	public List<HashMap<String, Object>> getComment() {
 		Connection conn = null;
@@ -25,8 +38,7 @@ public class CommentDao {
 		
 		try{
 			//STEP 2: Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			conn = getConnection();
 
 			stmt = conn.createStatement(); 
 			String sql ="SELECT * FROM comment";  
@@ -65,8 +77,7 @@ public class CommentDao {
 		String result = "success"; //
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			conn = getConnection();
 
 			stmt = conn.createStatement();
 			String sql = "INSERT INTO comment (posting_seq, content, writer, regdate)"+

@@ -98,7 +98,7 @@ public class UserDao {
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
 			
 			stmt = conn.createStatement();
-			
+			System.out.println("id:"+id);
 			String sql= "DELETE FROM user WHERE id='"+id+"' ";
 
 			stmt.executeUpdate(sql);
